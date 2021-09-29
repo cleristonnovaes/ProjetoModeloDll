@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ByteBank.Funcionarios
+namespace ByteBank.Modelos.Funcionarios
 {
     public class Diretor : FuncionarioAutenticavel
     {
