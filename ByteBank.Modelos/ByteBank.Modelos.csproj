@@ -4,4 +4,9 @@
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>D:\ByteBank\ByteBank.Modelos\ByteBank.Modelos.xml</DocumentationFile>
+    <OutputPath>bin\Debug\</OutputPath>
+  </PropertyGroup>
+
 </Project>
