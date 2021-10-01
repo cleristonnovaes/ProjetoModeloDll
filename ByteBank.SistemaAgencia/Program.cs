@@ -10,15 +10,18 @@ namespace ByteBank.SistemaAgencia
     {
         static void Main(string[] args)
         {
-            DateTime datafimPagamento = new DateTime(2021, 10, 07);
+            string palavra = "moedaOrigem=real&moedaDestino=dolar";
+            string nomeArgumento = "moedaDestino";
 
-            DateTime dataCorrente = DateTime.Now;
+            int indice = palavra.IndexOf(nomeArgumento);
 
-            TimeSpan diferenca = datafimPagamento - dataCorrente;
+            Console.WriteLine(indice);
 
-            string mensagem = "Vencimento em " + TimeSpanHumanizeExtensions.Humanize(diferenca);
+            int indiceValor = indice + nomeArgumento.Length;
+            
 
-            Console.WriteLine(mensagem);
+            string valorArgumento = palavra.Substring(indiceValor + 1);
+            Console.WriteLine(valorArgumento);
 
             Console.ReadLine();
         }
