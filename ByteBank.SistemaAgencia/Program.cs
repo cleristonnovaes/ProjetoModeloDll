@@ -11,81 +11,68 @@ namespace ByteBank.SistemaAgencia
     {
         static void Main(string[] args)
         {
+            ListaDeContaCorrente lista = new ListaDeContaCorrente();
 
-            Cliente carlos_1 = new Cliente();
-            carlos_1.Nome = "Carlos";
-            carlos_1.CPF = "458.623.120-03";
-            carlos_1.Profissao = "Designer";
-
-            Cliente carlos_2 = new Cliente();
-            carlos_2.Nome = "Carlos";
-            carlos_2.CPF = "458.623.120-03";
-            carlos_2.Profissao = "Designer";
+            ContaCorrente contaDoGui = new ContaCorrente(11111, 1111111);
+            lista.Adicionar(contaDoGui);
+            lista.Adicionar(new ContaCorrente(345, 23462));
+            lista.Adicionar(new ContaCorrente(363, 22451));
 
 
-            ContaCorrente conta = new ContaCorrente(456, 789456);
+            lista.EscreverListaNaTela();
+            
+            lista.Remover(contaDoGui);
 
-            if (carlos_1.Equals(carlos_2))
-            {
-                Console.WriteLine("São iguais!");
-            }
-            else
-            {
-                Console.WriteLine("Não são iguais!");
-            }
+            Console.WriteLine("Após remover o item");
+
+            lista.EscreverListaNaTela();
+
             Console.ReadLine();
-
         }
-        static void TestaString()
+
+        static void TestaArrayDeContaCorrente()
         {
-            ///Expressões regulares
-            ///
-            //string padrao = "[0-9]{4,5}-{0,1}[0-9]{4}";
-            string padrao = "[0-9]{4,5}-?[0-9]{4}";
-            string textoDeTeste = "Meu nome é Guilherme, me ligue em 94784-4546";
+            ContaCorrente[] contas = new ContaCorrente[]
+            {
+                new ContaCorrente(874, 5679787),
+                new ContaCorrente(874, 4456668),
+                new ContaCorrente(874, 7781438)
 
-            Match resultado = Regex.Match(textoDeTeste, padrao);
+            };
 
-            Console.WriteLine(resultado.Value);
-            Console.ReadLine();
+            for (int indice = 0; indice < contas.Length; indice++)
+            {
+                ContaCorrente contaAtual = contas[indice];
+                Console.WriteLine($"Conta {indice} {contaAtual.Numero}");
+            }
+        }
 
+        static void TestaArrayInt()
+        {
+            int[] idades = new int[6];
 
-            // Funções Inicia com, Fim com e Contem
-            string urlTeste = "https://www.bytebank.com/cambio";
-            int indiceByteBank = urlTeste.IndexOf("https://www.bytebank.com");
+            idades[0] = 15;
+            idades[1] = 28;
+            idades[2] = 35;
+            idades[3] = 50;
+            idades[4] = 28;
+            idades[5] = 60;
 
-            Console.WriteLine(urlTeste.StartsWith("https://www.bytebank.com"));
-            Console.WriteLine(urlTeste.EndsWith("cambio/"));
-            Console.WriteLine(urlTeste.Contains("bytebank"));
+            int acumulador = 0;
 
-            //Console.WriteLine(indiceByteBank == 0);
-            Console.ReadLine();
+            for(int indice = 0; indice < idades.Length; indice++)
+            {
+                int idade = idades[indice];
 
+                Console.WriteLine($"Acessando o array idades no indice {indice}");
+                Console.WriteLine($"Valor de idade [{indice}] = {idade}");
 
+                acumulador += idade;
+            }
 
-            string urlParametros = "http://www.bytebank.com/cambio?moedaOrigem=real&moedaDestino=dolar";
-            ExtratorValorDeArgumentoURL extratorDeValores = new ExtratorValorDeArgumentoURL(urlParametros);
+            int media = acumulador / idades.Length;
 
-            string valorOrigem = extratorDeValores.GetValor("moedaOrigem");
-            string valorDestino = extratorDeValores.GetValor("moedaDestino");
-            Console.WriteLine("Valor de moedaOrigem: " + valorOrigem + " e Valor de moedaDestino: " + valorDestino);
-            Console.ReadLine();
-
-
-            string palavra = "moedaOrigem=real&moedaDestino=dolar";
-            string nomeArgumento = "moedaDestino=";
-
-            int indice = palavra.IndexOf(nomeArgumento);
-
-            Console.WriteLine(indice);
-
-            int indiceValor = indice + nomeArgumento.Length;
-
-
-            string valorArgumento = palavra.Substring(indiceValor);
-            Console.WriteLine(valorArgumento);
-
-            Console.ReadLine();
+            Console.WriteLine($"Média de idades {media}");
         }
     }
 }
