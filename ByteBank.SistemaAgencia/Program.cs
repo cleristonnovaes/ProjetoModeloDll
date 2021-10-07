@@ -11,21 +11,55 @@ namespace ByteBank.SistemaAgencia
     {
         static void Main(string[] args)
         {
-            ListaDeContaCorrente lista = new ListaDeContaCorrente();
 
-            ContaCorrente contaDoGui = new ContaCorrente(11111, 1111111);
-            lista.Adicionar(contaDoGui);
-            lista.Adicionar(new ContaCorrente(345, 23462));
-            lista.Adicionar(new ContaCorrente(363, 22451));
+            Lista<int> idades = new Lista<int>();
+
+            idades.Adicionar(5);
+            idades.AdicionarVarios(1, 5, 78);
+
+            Console.WriteLine(SomarVarios(1, 2, 3, 5, 56465, 45));
+            Console.WriteLine(SomarVarios(1, 2, 45));
 
 
-            lista.EscreverListaNaTela();
-            
-            lista.Remover(contaDoGui);
+            Console.ReadLine();
+        }
 
-            Console.WriteLine("Após remover o item");
+        static void TestaListaDeObject()
+        {
+            ListaDeObject listaDeIdades = new ListaDeObject();
 
-            lista.EscreverListaNaTela();
+            listaDeIdades.Adicionar(10);
+            listaDeIdades.Adicionar(5);
+            listaDeIdades.Adicionar(4);
+            listaDeIdades.Adicionar("um texto qualquer");
+            listaDeIdades.AdicionarVarios(16, 23, 60);
+
+            for (int i = 0; i < listaDeIdades.Tamanho; i++)
+            {
+                int idade = (int)listaDeIdades[i];
+                Console.WriteLine($"Idade no indice {i}: {idade}");
+            }
+        }
+
+
+
+        static int SomarVarios(params int[] numeros)
+            {
+                int acumulador = 0;
+                foreach (int numero in numeros)
+                {
+                    acumulador += numero;
+                }
+                return acumulador;
+            }
+
+
+
+            for (int i = 0; i < lista.Tamanho; i++)
+            {
+                ContaCorrente itemAtual = lista[i];
+                Console.WriteLine($"Item na posição {i} = Conta {itemAtual.Numero}/{itemAtual.Agencia}");
+            }
 
             Console.ReadLine();
         }
