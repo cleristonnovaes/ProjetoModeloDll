@@ -1,8 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using ByteBank.Modelos;
 using ByteBank.Modelos.Funcionarios;
+using ByteBank.SistemaAgencia.Comparadores;
+using ByteBank.SistemaAgencia.Extensoes;
 using Humanizer;
+using System.Linq;
 
 
 namespace ByteBank.SistemaAgencia
@@ -11,20 +15,82 @@ namespace ByteBank.SistemaAgencia
     {
         static void Main(string[] args)
         {
+            var nomes = new List<string>()
+            {
+                "Wellington",
+                "Guilherme",
+                "Luana",
+                "Ana"
+            };
 
-            Lista<int> idades = new Lista<int>();
+            nomes.Sort();
 
-            idades.Adicionar(5);
-            idades.AdicionarVarios(1, 5, 78);
+            foreach (var nome in nomes)
+            {
+                Console.WriteLine(nome);
+            }
 
-            Console.WriteLine(SomarVarios(1, 2, 3, 5, 56465, 45));
-            Console.WriteLine(SomarVarios(1, 2, 45));
+            var contas = new List<ContaCorrente>()
+            {
+                new ContaCorrente(341, 57480),
+                new ContaCorrente(342, 45678),
+                new ContaCorrente(340, 48950),
+                null,
+                null,
+                new ContaCorrente(290, 18950)
+            };
+
+            // contas.Sort(); ~~> Chama a implementação dada em IComparable
+
+            //contas.Sort(new ComparadorContaCorrentePorAgencia());
+
+            IOrderedEnumerable<ContaCorrente> contasOrdenadas = 
+                contas.OrderBy(conta => {
+                    if(conta == null)
+                    {
+                        return int.MaxValue;
+                    }
+                    return conta.Numero;
+                 }
+                );
 
 
+            foreach (var conta in contasOrdenadas)
+            {
+                if(conta != null)
+                {
+                    Console.WriteLine($"Conta número {conta.Numero}, ag. {conta.Agencia}");
+                }
+     
+                
+            }
+
+            Console.ReadLine();
+
+            var idades = new List<int>();
+
+            idades.Add(1);
+            idades.Add(5);
+            idades.Add(14);
+            idades.Add(25);
+            idades.Add(38);
+            idades.Add(61);
+
+            idades.Remove(5);
+
+            idades.AdicionarVarios(1, 123, 456, 906);
+
+            idades.Sort();
+            for(int i = 0; i < idades.Count; i++)
+            {
+                Console.WriteLine(idades[i]);
+            }
+
+           
             Console.ReadLine();
         }
 
-        static void TestaListaDeObject()
+        /*static void TestaListaDeObject()
         {
             ListaDeObject listaDeIdades = new ListaDeObject();
 
@@ -43,7 +109,7 @@ namespace ByteBank.SistemaAgencia
 
 
 
-        static int SomarVarios(params int[] numeros)
+       static int SomarVarios(params int[] numeros)
             {
                 int acumulador = 0;
                 foreach (int numero in numeros)
@@ -107,6 +173,6 @@ namespace ByteBank.SistemaAgencia
             int media = acumulador / idades.Length;
 
             Console.WriteLine($"Média de idades {media}");
-        }
+        }*/
     }
 }
