@@ -40,19 +40,30 @@ namespace ByteBank.SistemaAgencia
                 new ContaCorrente(290, 18950)
             };
 
+
+            var listaSemNulos = new List<ContaCorrente>();
+
+            foreach (var conta in contas)
+            {
+                if(conta != null)
+                {
+                    listaSemNulos.Add(conta);
+                }
+            }
+
+            //var contaNaoNulas = contas.Where(conta => conta != null);
+
+
             // contas.Sort(); ~~> Chama a implementação dada em IComparable
 
             //contas.Sort(new ComparadorContaCorrentePorAgencia());
 
-            IOrderedEnumerable<ContaCorrente> contasOrdenadas = 
-                contas.OrderBy(conta => {
-                    if(conta == null)
-                    {
-                        return int.MaxValue;
-                    }
-                    return conta.Numero;
-                 }
-                );
+            var contasOrdenadas = contas
+                .Where(conta => conta != null)
+                .OrderBy(conta => conta.Numero);
+
+            //IOrderedEnumerable<ContaCorrente> contasOrdenadas =
+            //    contaNaoNulas.OrderBy(conta => conta.Numero);
 
 
             foreach (var conta in contasOrdenadas)
